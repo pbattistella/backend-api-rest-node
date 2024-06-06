@@ -1,7 +1,7 @@
 # Backend API Rest #
-
 API of the users
-Ttechnologies used:
+
+# Ttechnologies #
 - Node
 - Sequelize
 - Express
