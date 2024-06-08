@@ -5,7 +5,7 @@ const app = express()
 const index = require('./router/index')
 const userRouter = require('./router/user.router')
 
-app.use(express.urlencoded({ extended: true })) //informa para fazer o parse
+app.use(express.urlencoded({ extends: true }))
 app.use(express.json())
 app.use(express.json({ type: 'application/vnd.api+json' }))
 app.use(cors())

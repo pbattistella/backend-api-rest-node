@@ -1,13 +1,13 @@
-const dbConfig = require('../config/dbconfig')
+const dbConfig = require('../config/db.config')
 
-const { Sequelize } = require('sequelize')
+const Sequelize = require('sequelize')
 const sequelize = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
     dbConfig.PASSWORD,
     {
         host: dbConfig.HOST,
-        post: dbConfig.PORT,
+        port: dbConfig.PORT,
         dialect: dbConfig.DIALECT,
         pool: {
             max: dbConfig.pool.max,
@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 const db = { }
 
 db.sequelize = sequelize
-db.users = require('../model/user.model.js')(db.sequelize)
+db.users = require('../model/user.model')(db.sequelize)
 db.users.sync()
 
 module.exports = db

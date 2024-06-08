@@ -6,7 +6,7 @@ router.get('/api', (request, response) => {
         .status(200)
         .send({
             success: true,
-            message: 'API Rest running',
+            message: "API Rest is running.",
             version: '1.0.0'
         })
 })

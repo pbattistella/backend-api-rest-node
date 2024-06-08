@@ -3,55 +3,67 @@ const User = db.users
 
 exports.findAll = async () => {
     try {
+
         const users = await User.findAll({
-            attributes: ['id', 'username', 'email']
+            attributes:['id', 'username', 'email']
         })
         return users
+
     } catch(e) {
-        throw Error('Ocorreu um erro ao buscar os usuários.' + e.message)
+        console.log(`Error FindAll: ${e.message}`);
+        throw Error('Erro ao consultar os usuários!')
     }
 }
 
 exports.findById = async (id) => {
     try {
-        const users = await User.findByPk({
+        const user = await User.findByPk(id, {
             attributes: ['id', 'username', 'email']
         })
-        return users
+        return user
     } catch(e) {
-        throw Error('Ocorreu um erro ao buscar o usuário.' + e.message)
+        console.log(`Error FindByID: ${e.message}`);
+        throw Error(`Erro ao consultar o usuário com ID: ${id}`)
     }
 }
 
 exports.create = async (username, email, password) => {
     try {
-        const users = await User.create({
-            username: username, email: email, password: password
-        })
-        return users
+       const user = await User.create({
+        username: username,
+        email: email,
+        password: password
+       })
+       return user 
     } catch(e) {
-        throw Error('Ocorreu um erro ao criar o usuário.' + username + '! ' + e.message)
+        console.log(`Error CRETE USER: ${e.message}`);
+        throw Error(`Erro ao criar o usuário com username ${username}`)
     }
 }
 
 exports.update = async (id, username, email, password) => {
     try {
-        const users = await User.update(
-            { username: username, email: email, password: password },
-            {where: {id: id}}
+       const user = await User.update(
+            {
+                username: username,
+                email: email,
+                password: password
+            },
+            { where: { id: id }}
         )
-        return users
+       return {username: username, email: email} 
     } catch(e) {
-        throw Error('Ocorreu um erro ao alterar o usuário.' + username + '! ' + e.message)
+        console.log(`Error UPDATE USER: ${e.message}`);
+        throw Error(`Erro ao alterar o usuário com username ${username}`)
     }
 }
 
 exports.delete = async (id) => {
     try {
-        await User.destroy(
-            {  where: {id: id} }
-        )
+        await User.destroy({ where: { id: id }})
+
     } catch(e) {
-        throw Error('Ocorreu um erro ao deletar o usuário.' + e.message)
+        console.log(`Error DELETE USER: ${e.message}`);
+        throw Error(`Erro deletar o usuário com ID: ${id}`)
     }
 }
